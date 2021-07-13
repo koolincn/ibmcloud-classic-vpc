@@ -1,10 +1,3 @@
-variable "iaas_classic_username" {
-   type = "string"
-}
-variable "iaas_classic_api_key" {
-   type = "string"
-}
-
 provider "ibm" {
   region           = var.region
   generation       = 2
