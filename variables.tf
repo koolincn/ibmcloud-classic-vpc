@@ -3,6 +3,9 @@ variable "ibmcloud_timeout" {
   default     = 900
 }
 
+variable "iaas_classic_username" {}
+variable "iaas_classic_api_key"  {}
+
 variable "vpc_name" {}
 
 variable "basename" {
