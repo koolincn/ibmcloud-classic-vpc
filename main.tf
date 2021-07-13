@@ -138,7 +138,7 @@ resource "ibm_is_instance" "instance" {
 /* Feilds to Edit while provisioning Virtual Machine */
   
 resource "ibm_compute_vm_instance" "vsi-provisions" {
- hostname = "vsi-zt-dal12-01"
+ hostname = "${var.vsi_hostname}"
  domain = "zhutingsh.com"
  network_speed = 1000
  hourly_billing = true
@@ -147,19 +147,19 @@ resource "ibm_compute_vm_instance" "vsi-provisions" {
  memory = 2048
  disks = [25]
  local_disk = false
- datacenter = "dal12"
+ datacenter = "${var.computers_datacenter}"
  private_network_only = false
 }
 
 /* Feilds to Edit while provisioning Bare Metal */
 
 resource "ibm_compute_bare_metal" "bm-provisions" {
- hostname = "bms-zt-dal1201"
+ hostname = "${var.bms_hostname}"
  domain = "zhutingsh.com"
  network_speed = 1000
  hourly_billing = true
  os_reference_code = "UBUNTU_20_64"
  fixed_config_preset = "1U_1270_V6_2X2TB_NORAID"
- datacenter = "dal12"
+ datacenter = "${var.computers_datacenter}"
  private_network_only = false
 }
