@@ -1,6 +1,6 @@
 variable "ibmcloud_timeout" {
   description = "Timeout for API operations in seconds."
-  default     = 900
+  default     = 3600
 }
 
 variable "iaas_classic_username" {}
@@ -22,6 +22,18 @@ variable "subnet_zone" {
 
 variable "ssh_keyname" {}
 
-variable instance_count {
+variable vpc_instance_count {
   default = 1
+}
+
+variable "baremetal_hostname" {
+  default = "bms-demo"
+}
+
+variable "vsi_hostname" {
+  default = "vsi-demo"
+}
+
+variable "computers_datacenter" {
+  default = "dal12"
 }
