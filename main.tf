@@ -154,7 +154,7 @@ resource "ibm_compute_vm_instance" "vsi-provisions" {
 /* Feilds to Edit while provisioning Bare Metal */
 
 resource "ibm_compute_bare_metal" "bm-provisions" {
- hostname = "${var.bms_hostname}"
+ hostname = "${var.baremetal_hostname}"
  domain = "zhutingsh.com"
  network_speed = 1000
  hourly_billing = true
