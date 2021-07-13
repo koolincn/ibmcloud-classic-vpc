@@ -135,6 +135,16 @@ resource "ibm_is_instance" "instance" {
   }
 }
 
+resource "ibm_is_floating_ip" "fip1" {
+  name   = "${var.basename}-fip1"
+  target = ibm_is_instance.instance.primary_network_interface[0].id
+}
+
+output "sshcommand" {
+  value = "ssh root@ibm_is_floating_ip.fip1.address"
+}
+
+
 /* Feilds to Edit while provisioning Virtual Machine */
   
 resource "ibm_compute_vm_instance" "vsi-provisions" {
