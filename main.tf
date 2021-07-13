@@ -159,7 +159,7 @@ resource "ibm_compute_bare_metal" "bm-provisions" {
  network_speed = 1000
  hourly_billing = true
  os_reference_code = "UBUNTU_20_64"
- fixed_config_preset = "S1270V6_32GB_1X2TB_SATA_NORAID"
+ fixed_config_preset = "1U_1270_V6_2X2TB_NORAID"
  datacenter = "dal12"
  private_network_only = false
 }
