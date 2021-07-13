@@ -134,3 +134,32 @@ resource "ibm_is_instance" "instance" {
     security_groups = [ibm_is_security_group.sg1.id]
   }
 }
+
+/* Feilds to Edit while provisioning Virtual Machine */
+  
+resource "ibm_compute_vm_instance" "vsi-provisions" {
+ hostname = "vsi-zt-dal12-01"
+ domain = "zhutingsh.com"
+ network_speed = 1000
+ hourly_billing = true
+ os_reference_code = "UBUNTU_20_64"
+ cores = 1
+ memory = 2048
+ disks = [25]
+ local_disk = false
+ datacenter = "dal12"
+ private_network_only = false
+}
+
+/* Feilds to Edit while provisioning Bare Metal */
+
+resource "ibm_compute_bare_metal" "bm-provisions" {
+ hostname = "bms-zt-dal1201"
+ domain = "zhutingsh.com"
+ network_speed = 1000
+ hourly_billing = true
+ os_reference_code = "UBUNTU_20_64"
+ fixed_config_preset = "S1270V6_32GB_1X2TB_SATA_NORAID"
+ datacenter = "dal12"
+ private_network_only = false
+}
