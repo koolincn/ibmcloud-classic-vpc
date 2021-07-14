@@ -198,19 +198,19 @@ output "sshcommand" {
 
 /* Feilds to Edit while provisioning Virtual Machine */
  
-# resource "ibm_compute_vm_instance" "vsi-provisions" {
-#  hostname = "${var.vsi_hostname}"
-#  domain = "zhutingsh.com"
-#  network_speed = 1000
-#  hourly_billing = true
-#  os_reference_code = "UBUNTU_20_64"
-#  cores = 1
-#  memory = 2048
-#  disks = [25]
-#  local_disk = false
-#  datacenter = "${var.computers_datacenter}"
-#  private_network_only = false
-# } 
+ resource "ibm_compute_vm_instance" "vsi-provisions" {
+  hostname = "${var.vsi_hostname}"
+  domain = "zhutingsh.com"
+  network_speed = 1000
+  hourly_billing = true
+  os_reference_code = "CENTOS_7_64"
+  cores = 1
+  memory = 2048
+  disks = [25]
+  local_disk = false
+  datacenter = "${var.computers_datacenter}"
+  private_network_only = false
+ } 
 
 /* Feilds to Edit while provisioning Bare Metal */
  
@@ -227,6 +227,6 @@ output "sshcommand" {
 # output "classic_bms_ips" {
 #   value = "ibm_compute_bare_metal.bm-provisions.public_ipv4_address"
 # }
-# output "classic_vsi_ips" {
-#   value = "ibm_compute_vm_instance.vsi-provisions.ipv4_address"
-# }
+ output "classic_vsi_ips" {
+   value = "ibm_compute_vm_instance.vsi-provisions.ipv4_address"
+ }
