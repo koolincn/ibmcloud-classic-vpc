@@ -107,7 +107,7 @@ resource "ibm_is_vpc_address_prefix" "vpc_address_prefix" {
   name = "${var.basename}-prefix"
   zone = var.subnet_zone
   vpc  = ibm_is_vpc.vpc.id
-  cidr = "192.168.0.0/16"
+  cidr = "192.168.0.0/24"
 }
 
 resource "ibm_is_subnet" "subnet" {
@@ -146,30 +146,30 @@ output "sshcommand" {
 
 
 /* Feilds to Edit while provisioning Virtual Machine */
-  
-resource "ibm_compute_vm_instance" "vsi-provisions" {
- hostname = "${var.vsi_hostname}"
- domain = "zhutingsh.com"
- network_speed = 1000
- hourly_billing = true
- os_reference_code = "UBUNTU_20_64"
- cores = 1
- memory = 2048
- disks = [25]
- local_disk = false
- datacenter = "${var.computers_datacenter}"
- private_network_only = false
-}
+ 
+/* "resource" "ibm_compute_vm_instance" "vsi-provisions" { */
+/*  hostname = "${var.vsi_hostname}" */
+/*  domain = "zhutingsh.com" */
+/*  network_speed = 1000 */
+/*  hourly_billing = true */
+/*  os_reference_code = "UBUNTU_20_64" */
+/*  cores = 1 */
+/*  memory = 2048 */
+/*  disks = [25] */
+/*  local_disk = false */
+/*  datacenter = "${var.computers_datacenter}" */
+/*  private_network_only = false */
+/* } */
 
 /* Feilds to Edit while provisioning Bare Metal */
-
-resource "ibm_compute_bare_metal" "bm-provisions" {
- hostname = "${var.baremetal_hostname}"
- domain = "zhutingsh.com"
- network_speed = 1000
- hourly_billing = true
- os_reference_code = "UBUNTU_20_64"
- fixed_config_preset = "1U_1270_V6_2X2TB_NORAID"
- datacenter = "${var.computers_datacenter}"
- private_network_only = false
-}
+ 
+/* "resource" "ibm_compute_bare_metal" "bm-provisions" { */
+/*  hostname = "${var.baremetal_hostname}" */
+/*  domain = "zhutingsh.com" */
+/*  network_speed = 1000 */
+/*  hourly_billing = true */
+/*  os_reference_code = "UBUNTU_20_64" */
+/*  fixed_config_preset = "1U_1270_V6_2X2TB_NORAID" */
+/*  datacenter = "${var.computers_datacenter}" */
+/*  private_network_only = false */
+/* } */
