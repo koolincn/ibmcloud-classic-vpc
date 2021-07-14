@@ -174,7 +174,7 @@ resource "ibm_is_floating_ip" "fip1" {
 }
 
 output "sshcommand" {
-  value = "ssh root@ibm_is_floating_ip.fip1.address"
+  value = "ssh root@${ibm_is_floating_ip.fip1.address}"
 }
 
 /* Feild to Edit transit gateway */
@@ -229,5 +229,5 @@ output "sshcommand" {
 #   value = "ibm_compute_bare_metal.bm-provisions.public_ipv4_address"
 # }
  output "classic_vsi_ips" {
-   value = "ibm_compute_vm_instance.vsi-provisions.ipv4_address"
+   value = ibm_compute_vm_instance.vsi-provisions.ipv4_address
  }
