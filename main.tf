@@ -184,13 +184,13 @@ output "sshcommand" {
   global = true
   resource_group = data.ibm_resource_group.group.id
  }
- resource "ibm_tg_connection" "ibm_tg_connection"{
+ resource "ibm_tg_connection" "ibm_tg_vpc_connection"{
   gateway = ibm_tg_gateway.new_tg_gw.id
   network_type = "vpc"
   name = "vpc_tg"
   network_id = ibm_is_vpc.vpc.resource_crn
  }
- resource "ibm_tg_connection" "ibm_tg_connection"{
+ resource "ibm_tg_connection" "ibm_tg_clasic_connection"{
   gateway = ibm_tg_gateway.new_tg_gw.id
   network_type = "classic"
   name = "classic_tg"
