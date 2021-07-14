@@ -190,11 +190,12 @@ output "sshcommand" {
   name = "vpc_tg"
   network_id = ibm_is_vpc.vpc.resource_crn
  }
- resource "ibm_tg_connection" "ibm_tg_clasic_connection"{
-  gateway = ibm_tg_gateway.new_tg_gw.id
-  network_type = "classic"
-  name = "classic_tg"
- }
+# Classic transit gate connect need VRF enabled
+# resource "ibm_tg_connection" "ibm_tg_clasic_connection"{
+#  gateway = ibm_tg_gateway.new_tg_gw.id
+#  network_type = "classic"
+#  name = "classic_tg"
+# }
 
 /* Feilds to Edit while provisioning Virtual Machine */
  
