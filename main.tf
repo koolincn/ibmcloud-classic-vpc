@@ -144,6 +144,24 @@ output "sshcommand" {
   value = "ssh root@ibm_is_floating_ip.fip1.address"
 }
 
+/* Feild to Edit transit gateway */
+/* "resource" "ibm_tg_gateway" "new_tg_gw"{ */
+/*  name=var.name */
+/*  location= "us-south " */ 
+/*  global=true */ 
+/*  resource_group = data.ibm_resource_group.group.id */ 
+/* } */ 
+/* "resource" "ibm_tg_connection" "ibm_tg_connection"{ */
+/*  gateway = ibm_tg_gateway.new_tg_gw.id */
+/*  network_type = "vpc" */
+/*  name= "vpc_tg" */
+/*  network_id = ibm_is_vpc.vpc.resource_crn */
+/* } */ 
+/* "resource" "ibm_tg_connection" "ibm_tg_connection"{ */ 
+/*  gateway = ibm_tg_gateway.new_tg_gw.id */ 
+/*  network_type = "classic" */
+/*  name= "classic_tg" */
+/* } */
 
 /* Feilds to Edit while provisioning Virtual Machine */
  
