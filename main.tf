@@ -20,6 +20,17 @@ resource "ibm_is_security_group" "sg1" {
   vpc  = ibm_is_vpc.vpc.id
 }
 
+# allow all incoming ping
+resource "ibm_is_security_group_rule" "ingress_imp" {
+  group     = ibm_is_security_group.sg1.id
+  direction = "inbound"
+  remote    = "0.0.0.0/0"
+
+  icmp {
+    type = 8
+  }
+}
+
 # allow all incoming network traffic on port 22
 resource "ibm_is_security_group_rule" "ingress_ssh_all" {
   group     = ibm_is_security_group.sg1.id
@@ -56,7 +67,19 @@ resource "ibm_is_security_group_rule" "ingress_secweb_all" {
   }
 }
 
-# allow all outcoming network traffic
+# allow all incoming network traffic on port 3306 (mysql port)
+resource "ibm_is_security_group_rule" "ingress_db_all" {
+  group     = ibm_is_security_group.sg1.id
+  direction = "inbound"
+  remote    = "0.0.0.0/0"
+
+  tcp {
+    port_min = 3306
+    port_max = 3306
+  }
+}
+
+# allow all outcoming network traffic on port 80
 resource "ibm_is_security_group_rule" "egress_all_web" {
   group     = ibm_is_security_group.sg1.id
   direction = "outbound"
@@ -94,6 +117,16 @@ resource "ibm_is_security_group_rule" "egress_all_dns_udp" {
   udp {
     port_min = 53
     port_max = 53
+  }
+}
+
+resource "ibm_is_security_group_rule" "egress_all_range" {
+  group     = ibm_is_security_group.sg1.id
+  direction = "outbound"
+
+  tcp {
+    port_min = 1024
+    port_max = 32768
   }
 }
 
@@ -145,49 +178,55 @@ output "sshcommand" {
 }
 
 /* Feild to Edit transit gateway */
-/* "resource" "ibm_tg_gateway" "new_tg_gw"{ */
-/*  name=var.name */
-/*  location= "us-south " */ 
-/*  global=true */ 
-/*  resource_group = data.ibm_resource_group.group.id */ 
-/* } */ 
-/* "resource" "ibm_tg_connection" "ibm_tg_connection"{ */
-/*  gateway = ibm_tg_gateway.new_tg_gw.id */
-/*  network_type = "vpc" */
-/*  name= "vpc_tg" */
-/*  network_id = ibm_is_vpc.vpc.resource_crn */
-/* } */ 
-/* "resource" "ibm_tg_connection" "ibm_tg_connection"{ */ 
-/*  gateway = ibm_tg_gateway.new_tg_gw.id */ 
-/*  network_type = "classic" */
-/*  name= "classic_tg" */
-/* } */
+ resource "ibm_tg_gateway" "new_tg_gw"{
+  name=var.name
+  location = var.region
+  global = true
+  resource_group = data.ibm_resource_group.group.id
+ }
+ resource "ibm_tg_connection" "ibm_tg_connection"{
+  gateway = ibm_tg_gateway.new_tg_gw.id
+  network_type = "vpc"
+  name = "vpc_tg"
+  network_id = ibm_is_vpc.vpc.resource_crn
+ }
+ resource "ibm_tg_connection" "ibm_tg_connection"{
+  gateway = ibm_tg_gateway.new_tg_gw.id
+  network_type = "classic"
+  name = "classic_tg"
+ }
 
 /* Feilds to Edit while provisioning Virtual Machine */
  
-/* "resource" "ibm_compute_vm_instance" "vsi-provisions" { */
-/*  hostname = "${var.vsi_hostname}" */
-/*  domain = "zhutingsh.com" */
-/*  network_speed = 1000 */
-/*  hourly_billing = true */
-/*  os_reference_code = "UBUNTU_20_64" */
-/*  cores = 1 */
-/*  memory = 2048 */
-/*  disks = [25] */
-/*  local_disk = false */
-/*  datacenter = "${var.computers_datacenter}" */
-/*  private_network_only = false */
-/* } */
+# resource "ibm_compute_vm_instance" "vsi-provisions" {
+#  hostname = "${var.vsi_hostname}"
+#  domain = "zhutingsh.com"
+#  network_speed = 1000
+#  hourly_billing = true
+#  os_reference_code = "UBUNTU_20_64"
+#  cores = 1
+#  memory = 2048
+#  disks = [25]
+#  local_disk = false
+#  datacenter = "${var.computers_datacenter}"
+#  private_network_only = false
+# } 
 
 /* Feilds to Edit while provisioning Bare Metal */
  
-/* "resource" "ibm_compute_bare_metal" "bm-provisions" { */
-/*  hostname = "${var.baremetal_hostname}" */
-/*  domain = "zhutingsh.com" */
-/*  network_speed = 1000 */
-/*  hourly_billing = true */
-/*  os_reference_code = "UBUNTU_20_64" */
-/*  fixed_config_preset = "1U_1270_V6_2X2TB_NORAID" */
-/*  datacenter = "${var.computers_datacenter}" */
-/*  private_network_only = false */
-/* } */
+# resource "ibm_compute_bare_metal" "bm-provisions" {
+#  hostname = "${var.baremetal_hostname}"
+#  domain = "zhutingsh.com"
+#  network_speed = 1000
+#  hourly_billing = true
+#  os_reference_code = "UBUNTU_20_64"
+#  fixed_config_preset = "1U_1270_V6_2X2TB_NORAID"
+#  datacenter = "${var.computers_datacenter}"
+#  private_network_only = false
+# } 
+# output "classic_bms_ips" {
+#   value = "ibm_compute_bare_metal.bm-provisions.public_ipv4_address"
+# }
+# output "classic_vsi_ips" {
+#   value = "ibm_compute_vm_instance.vsi-provisions.ipv4_address"
+# }
