@@ -120,7 +120,7 @@ resource "ibm_is_subnet" "subnet" {
 }
 
 resource "ibm_is_instance" "instance" {
-  count          = var.instance_count
+  count          = var.vpc_instance_count
   name           = "${var.basename}-instance-${count.index}"
   vpc            = ibm_is_vpc.vpc.id
   zone           = var.subnet_zone
