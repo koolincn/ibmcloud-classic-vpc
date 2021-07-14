@@ -179,7 +179,7 @@ output "sshcommand" {
 
 /* Feild to Edit transit gateway */
  resource "ibm_tg_gateway" "new_tg_gw"{
-  name=var.name
+  name = "tg_demo"
   location = var.region
   global = true
   resource_group = data.ibm_resource_group.group.id
