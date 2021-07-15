@@ -11,6 +11,8 @@ data "ibm_resource_group" "group" {
 }
 
 resource "ibm_compute_ssh_key" "ssh_key" {
+  label      = "${var.iaas_ssh_label}"
+  notes      = "${var.iaas_ssh_notes}"
   public_key = "${var.iaas_ssh_key}"
 }
 
