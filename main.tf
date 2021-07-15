@@ -215,7 +215,7 @@ output "sshcommand" {
   local_disk = false
   datacenter = "${var.computers_datacenter}"
   private_network_only = false
-  ssh_key_ids = ["${ibm_compute_ssh_key.iaas_ssh_key.id}"]
+  ssh_key_ids = ["${ibm_compute_ssh_key.ssh_key.id}"]
  } 
 
 /* Feilds to Edit while provisioning Bare Metal */
