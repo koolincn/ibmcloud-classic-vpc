@@ -3,6 +3,11 @@ variable "ibmcloud_timeout" {
   default     = 3600
 }
 
+variable "iaas_ssh_key" {
+  description = "Classic environment SSH public Key"
+  default = "ssh public key detail information"
+}
+
 variable "iaas_classic_username" {}
 variable "iaas_classic_api_key"  {}
 
