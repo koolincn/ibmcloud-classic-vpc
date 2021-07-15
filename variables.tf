@@ -8,6 +8,16 @@ variable "iaas_ssh_key" {
   default = "ssh public key detail information"
 }
 
+variable "iaas_ssh_label" {
+  description = "Classic environment SSH Label"
+  default = "IaaS SSH Label"
+}
+
+variable "iaas_ssh_notes" {
+  description = "Classic environment SSH Notes"
+  default = "IaaS SSH Notes"
+}
+
 variable "iaas_classic_username" {}
 variable "iaas_classic_api_key"  {}
 
