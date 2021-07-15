@@ -10,6 +10,10 @@ data "ibm_resource_group" "group" {
   is_default = "true"
 }
 
+resource "ibm_compute_ssh_key" "ssh_key" {
+  public_key = "${var.iaas_ssh_key}"
+}
+
 resource "ibm_is_vpc" "vpc" {
   name           = var.vpc_name
   resource_group = data.ibm_resource_group.group.id
@@ -211,6 +215,7 @@ output "sshcommand" {
   local_disk = false
   datacenter = "${var.computers_datacenter}"
   private_network_only = false
+  ssh_key_ids = ["${ibm_compute_ssh_key.iaas_ssh_key.id}"]
  } 
 
 /* Feilds to Edit while provisioning Bare Metal */
