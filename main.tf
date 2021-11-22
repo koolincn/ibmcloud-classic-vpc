@@ -163,7 +163,7 @@ resource "ibm_is_instance" "instance" {
   name           = "${var.basename}-instance-${count.index}"
   vpc            = ibm_is_vpc.vpc.id
   zone           = var.subnet_zone
-  profile        = "cx2-2x4"
+  profile        = var.vpc_vsi_profile
   image          = data.ibm_is_image.ds_image.id
   keys           = [data.ibm_is_ssh_key.ds_key.id]
   resource_group = data.ibm_resource_group.group.id
@@ -184,18 +184,18 @@ output "sshcommand" {
 }
 
 /* Feild to Edit transit gateway */
- resource "ibm_tg_gateway" "new_tg_gw"{
-  name = "tg_demo"
-  location = var.region
-  global = true
-  resource_group = data.ibm_resource_group.group.id
- }
- resource "ibm_tg_connection" "ibm_tg_vpc_connection"{
-  gateway = ibm_tg_gateway.new_tg_gw.id
-  network_type = "vpc"
-  name = "vpc_tg"
-  network_id = ibm_is_vpc.vpc.resource_crn
- }
+# resource "ibm_tg_gateway" "new_tg_gw"{
+#  name = "tg_demo"
+#  location = var.region
+#  global = true
+#  resource_group = data.ibm_resource_group.group.id
+# }
+# resource "ibm_tg_connection" "ibm_tg_vpc_connection"{
+#  gateway = ibm_tg_gateway.new_tg_gw.id
+#  network_type = "vpc"
+#  name = "vpc_tg"
+#  network_id = ibm_is_vpc.vpc.resource_crn
+# }
 # Classic transit gate connect need VRF enabled
 # resource "ibm_tg_connection" "ibm_tg_clasic_connection"{
 #  gateway = ibm_tg_gateway.new_tg_gw.id
