@@ -9,8 +9,8 @@ variable "iaas_ssh_key" {
 }
 
 variable "iaas_ssh_label" {
-  description = "Classic environment SSH Label"
-  default = "IaaS SSH Label"
+  description = "Classic environment SSH's Label"
+  default = "ClassicSSHKey"
 }
 
 variable "iaas_ssh_notes" {
@@ -18,8 +18,12 @@ variable "iaas_ssh_notes" {
   default = "IaaS SSH Notes"
 }
 
-variable "iaas_classic_username" {}
-variable "iaas_classic_api_key"  {}
+variable "iaas_classic_username" {
+  description = "Please provide the IBM Cloud User ID, if you want to create classic resources such as BMS or VSIs"
+}
+variable "iaas_classic_api_key"  {
+  description = "This is the IBM Cloud User ID's Infrastruce API Key"
+}
 
 variable "vpc_name" {}
 
@@ -29,10 +33,12 @@ variable "basename" {
 
 variable "region" {
   default = "us-south"
+  description = "Where the VPC will be created, such as us-south; us-east; jp-tok; jp-osa etc"
 }
 
 variable "subnet_zone" {
   default = "us-south-1"
+  description = "subnets within the VPC will be created"
 }
 
 variable "ssh_keyname" {
@@ -65,4 +71,5 @@ variable "vsi_hostname" {
 
 variable "computers_datacenter" {
   default = "dal12"
+  description = "The DataCenter where the classic VSI will be created"
 }
